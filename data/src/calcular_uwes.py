@@ -2,8 +2,8 @@ import pandas as pd
 import argparse
 
 def main():
-    parser = argparse.ArgumentParser(description='Calcula las 4 variables del UWES-9 y elimina las originales.')
-    parser.add_argument('archivos', nargs='+', help='Archivos CSV (preferiblemente los que ya pasaron por calcular_mbi.py)')
+    parser = argparse.ArgumentParser(description='Calcula las 3 variables científicas del UWES-9 y elimina las originales.')
+    parser.add_argument('archivos', nargs='+', help='Archivos CSV normalizados a procesar')
     parser.add_argument('-o', '--output', default='valores_uwes_dataset.csv', help='Archivo de salida')
     args = parser.parse_args()
 
@@ -22,26 +22,29 @@ def main():
 
     df = pd.concat(dataframes, ignore_index=True)
 
-    # 2. Definir los grupos del UWES-9 para las 4 variables
-    uwes_vitalidad = ['UWES_Energia', 'UWES_Fuerza']
-    uwes_motivacion = ['UWES_Ilusion', 'UWES_Ganas_Manana']
-    uwes_proposito = ['UWES_Inspiracion', 'UWES_Orgullo']
-    uwes_inmersion = ['UWES_Feliz_Intensidad', 'UWES_Inmerso', 'UWES_Dejarse_Llevar']
+    # 2. Definir las 3 dimensiones oficiales según el estudio (UWES-9)
+    # Vigor: Energía, Fuerza y Ganas por la mañana
+    uwes_vigor = ['UWES_Energia', 'UWES_Fuerza', 'UWES_Ganas_Manana']
+    
+    # Dedicación: Ilusión (entusiasmo), Inspiración y Orgullo
+    uwes_dedicacion = ['UWES_Ilusion', 'UWES_Inspiracion', 'UWES_Orgullo']
+    
+    # Absorción: Feliz intensidad, Inmerso y Dejarse llevar
+    uwes_absorcion = ['UWES_Feliz_Intensidad', 'UWES_Inmerso', 'UWES_Dejarse_Llevar']
 
-# 3. Cálculos: Calcular la media directa de los valores ya normalizados (0 a 1).
-    df['VALOR_Vitalidad'] = df[uwes_vitalidad].mean(axis=1).round(4)
-    df['VALOR_Motivacion'] = df[uwes_motivacion].mean(axis=1).round(4)
-    df['VALOR_Proposito'] = df[uwes_proposito].mean(axis=1).round(4)
-    df['VALOR_Inmersion'] = df[uwes_inmersion].mean(axis=1).round(4)
+    # 3. Cálculo de la media directa (0 a 1)
+    df['VALOR_Vigor'] = df[uwes_vigor].mean(axis=1).round(4)
+    df['VALOR_Dedicacion'] = df[uwes_dedicacion].mean(axis=1).round(4)
+    df['VALOR_Absorcion'] = df[uwes_absorcion].mean(axis=1).round(4)
 
-    # 4. Eliminar las columnas de las preguntas individuales del UWES
-    todas_preguntas_uwes = uwes_vitalidad + uwes_motivacion + uwes_proposito + uwes_inmersion
+    # 4. Eliminar las columnas de las preguntas individuales
+    todas_preguntas_uwes = uwes_vigor + uwes_dedicacion + uwes_absorcion
     columnas_a_borrar = [col for col in todas_preguntas_uwes if col in df.columns]
     df.drop(columns=columnas_a_borrar, inplace=True)
 
     # 5. Exportar
     df.to_csv(args.output, sep='\t', index=False, encoding='utf-8')
-    print(f"Éxito: Procesados {len(args.archivos)} archivo(s). Valores guardados en {args.output}")
+    print(f"Éxito: Procesados {len(args.archivos)} archivo(s). Variables científicas (Vigor, Dedicación, Absorción) guardadas en {args.output}")
 
 if __name__ == "__main__":
     main()

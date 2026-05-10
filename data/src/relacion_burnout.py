@@ -42,7 +42,7 @@ def main():
         for i, res in enumerate(resultados, 1):
             print(f"{i}. {res['Var1']} + {res['Var2']} -> Correlación: {res['Correlacion']}")
         print("-" * 50)
-        print(f"🏆 MEJOR COMBINACIÓN: {mejor_par['Var1']} y {mejor_par['Var2']}\n")
+        print(f"MEJOR COMBINACIÓN: {mejor_par['Var1']} y {mejor_par['Var2']}\n")
 
     if args.output:
         # Conservamos ID, Status, todas las variables calculadas (VALOR_), MBI_Media y el mejor par
