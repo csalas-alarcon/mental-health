@@ -805,25 +805,25 @@ burnout.view(sim=type)
 
 
     
-![png](marcos_files/marcos_5_2.png)
+![png](a_files/a_5_2.png)
     
 
 
 
     
-![png](marcos_files/marcos_5_3.png)
+![png](a_files/a_5_3.png)
     
 
 
 
     
-![png](marcos_files/marcos_5_4.png)
+![png](a_files/a_5_4.png)
     
 
 
 
     
-![png](marcos_files/marcos_5_5.png)
+![png](a_files/a_5_5.png)
     
 
 
@@ -2557,9 +2557,9 @@ csv.drop(columns=['temp_sort'], inplace=True)
 
 ```python
 # Definition of input and output variables
-vigor = ctrl.Antecedent(np.arange(0, 6), 'Vig')
-dedicacion = ctrl.Antecedent(np.arange(0, 6), 'Ded')
-absorcion = ctrl.Antecedent(np.arange(0, 6), 'Abs')
+Vig = ctrl.Antecedent(np.arange(0, 6), 'Vig')
+Ded = ctrl.Antecedent(np.arange(0, 6), 'Ded')
+Abs = ctrl.Antecedent(np.arange(0, 6), 'Abs')
 
 Abs = ctrl.Antecedent(np.arange(0, 6), 'Abs')
 Abs = ctrl.Antecedent(np.arange(0, 6), 'Abs')
@@ -2568,25 +2568,25 @@ Abs = ctrl.Antecedent(np.arange(0, 6), 'Abs')
 burnout = ctrl.Consequent(np.arange(0, 11), 'burnout') #si fuera 0,10 generaría números hasta el 9, estamos siempre poniendo 1 más
 
 
-vigor['muy_bajo'] = fuzz.trapmf(AE.universe, [0, 0, 1.5, 2])   
-vigor['bajo']  = fuzz.trapmf(AE.universe, [1.7, 2.3, 2.7, 3.25])   
-vigor['medio'] = fuzz.trapmf(AE.universe, [2.95, 3.7, 4.3, 4.8])   
-vigor['alto']  = fuzz.trapmf(AE.universe, [4.5, 4.8, 5.2, 5.65])  
-vigor['muy_alto'] = fuzz.trapmf(AE.universe, [5.4, 5.7, 6, 6])   
+Vig['muy bajo'] = fuzz.trapmf(AE.universe, [0, 0, 1.5, 2])   
+Vig['bajo']  = fuzz.trapmf(AE.universe, [1.7, 2.3, 2.7, 3.25])   
+Vig['medio'] = fuzz.trapmf(AE.universe, [2.95, 3.7, 4.3, 4.8])   
+Vig['alto']  = fuzz.trapmf(AE.universe, [4.5, 4.8, 5.2, 5.65])  
+Vig['muy alto'] = fuzz.trapmf(AE.universe, [5.4, 5.7, 6, 6])   
 AE.view()
 
-dedicacion['muy_baja'] = fuzz.trapmf(AE.universe, [0, 0, 1.5, 2])   
-dedicacion['baja']  = fuzz.trapmf(AE.universe, [1.7, 2.3, 2.7, 3.25])   
-dedicacion['media'] = fuzz.trapmf(AE.universe, [2.95, 3.7, 4.3, 4.8])   
-dedicacion['alta']  = fuzz.trapmf(AE.universe, [4.5, 4.8, 5.2, 5.65])  
-dedicacion['muy_alta'] = fuzz.trapmf(AE.universe, [5.4, 5.7, 6, 6])   
+Ded['muy bajo'] = fuzz.trapmf(AE.universe, [0, 0, 1.5, 2])   
+Ded['bajo']  = fuzz.trapmf(AE.universe, [1.7, 2.3, 2.7, 3.25])   
+Ded['medio'] = fuzz.trapmf(AE.universe, [2.95, 3.7, 4.3, 4.8])   
+Ded['alto']  = fuzz.trapmf(AE.universe, [4.5, 4.8, 5.2, 5.65])  
+Ded['muy alto'] = fuzz.trapmf(AE.universe, [5.4, 5.7, 6, 6])   
 AE.view()
 
-absorcion['muy_baja'] = fuzz.trapmf(AE.universe, [0, 0, 1.5, 2])   
-absorcion['baja']  = fuzz.trapmf(AE.universe, [1.7, 2.3, 2.7, 3.25])   
-absorcion['media'] = fuzz.trapmf(AE.universe, [2.95, 3.7, 4.3, 4.8])   
-absorcion['alta']  = fuzz.trapmf(AE.universe, [4.5, 4.8, 5.2, 5.65])  
-absorcion['muy_alta'] = fuzz.trapmf(AE.universe, [5.4, 5.7, 6, 6])   
+Abs['muy bajo'] = fuzz.trapmf(AE.universe, [0, 0, 1.5, 2])   
+Abs['bajo']  = fuzz.trapmf(AE.universe, [1.7, 2.3, 2.7, 3.25])   
+Abs['medio'] = fuzz.trapmf(AE.universe, [2.95, 3.7, 4.3, 4.8])   
+Abs['alto']  = fuzz.trapmf(AE.universe, [4.5, 4.8, 5.2, 5.65])  
+Abs['muy alto'] = fuzz.trapmf(AE.universe, [5.4, 5.7, 6, 6])   
 AE.view()
 
 #cortes simétricos del 0 al 10
@@ -2594,173 +2594,6 @@ burnout['bajo']  = fuzz.trapmf(burnout.universe, [0, 0, 2, 4])
 burnout['medio'] = fuzz.trapmf(burnout.universe, [3, 5, 5, 7])
 burnout['alto']  = fuzz.trapmf(burnout.universe, [6, 8, 10, 10])
 burnout.view()
-
-
-
-
-#Dedicación
-# Entorno colaborativo
-rule1 = ctrl.Rule(entorno['colaborativo'] & (dedicacion['muy_alta'] | dedicacion['alta']), burnout['bajo'])
-rule2 = ctrl.Rule(entorno['colaborativo'] & dedicacion['media'], burnout['medio'])
-
-# Entorno hostil
-rule3 = ctrl.Rule(entorno['hostil'] & (dedicacion['muy_baja'] | dedicacion['baja'] | dedicacion['media']), burnout['alto'])
-
-# Entorno neutro
-rule4 = ctrl.Rule(entorno['neutro'] & dedicacion['media'], burnout['medio'])
-rule5 = ctrl.Rule(entorno['neutro'] & (dedicacion['muy_baja'] | dedicacion['baja']), burnout['alto'])
-
-# Tareas Bajas
-rule6 = ctrl.Rule(tareas['bajas'] & (dedicacion['muy_alta'] | dedicacion['alta'] | dedicacion['media']), burnout['bajo'])
-rule7 = ctrl.Rule(tareas['bajas'] & (dedicacion['baja'] | dedicacion['muy_baja']), burnout['medio'])
-
-# Tareas Manejables
-rule8 = ctrl.Rule(tareas['manejables'] & (dedicacion['muy_alta'] | dedicacion['alta']), burnout['bajo'])
-rule9 = ctrl.Rule(tareas['manejables'] & (dedicacion['media'] | dedicacion['baja'] | dedicacion['muy_baja']), burnout['medio'])
-
-# Tareas Saturadas o Críticas
-rule10 = ctrl.Rule(tareas['saturadas'] & (dedicacion['muy_baja'] | dedicacion['baja']), burnout['alto'])
-rule11 = ctrl.Rule(tareas['saturadas'] & dedicacion['media'], burnout['medio'])
-rule12 = ctrl.Rule(tareas['criticas'] & (dedicacion['muy_baja'] | dedicacion['baja'] | dedicacion['media']), burnout['alto'])
-
-
-#Vigor
-# Entorno colaborativo
-rule1_2 = ctrl.Rule(entorno['colaborativo'] & (vigor['muy_alto'] | vigor['alto']), burnout['bajo'])
-rule2_2 = ctrl.Rule(entorno['colaborativo'] & vigor['medio'], burnout['medio'])
-
-# Entorno hostil
-rule3_2 = ctrl.Rule(entorno['hostil'] & (vigor['muy_bajo'] | vigor['bajo'] | vigor['medio']), burnout['alto'])
-
-# Entorno neutro
-rule4_2 = ctrl.Rule(entorno['neutro'] & vigor['medio'], burnout['medio'])
-rule5_2 = ctrl.Rule(entorno['neutro'] & (vigor['muy_bajo'] | vigor['bajo']), burnout['alto'])
-
-# Tareas Bajas
-rule6_2 = ctrl.Rule(tareas['bajas'] & (vigor['muy_alto'] | vigor['alto'] | vigor['medio']), burnout['bajo'])
-rule7_2 = ctrl.Rule(tareas['bajas'] & (vigor['bajo'] | vigor['muy_bajo']), burnout['medio'])
-
-# Tareas Manejables
-rule8_2 = ctrl.Rule(tareas['manejables'] & (vigor['muy_alto'] | vigor['alto']), burnout['bajo'])
-rule9_2 = ctrl.Rule(tareas['manejables'] & (vigor['medio'] | vigor['bajo'] | vigor['muy_bajo']), burnout['medio'])
-
-# Tareas Saturadas o Críticas
-rule10_2 = ctrl.Rule(tareas['saturadas'] & (vigor['muy_bajo'] | vigor['bajo']), burnout['alto'])
-rule11_2 = ctrl.Rule(tareas['saturadas'] & vigor['medio'], burnout['medio'])
-rule12_2 = ctrl.Rule(tareas['criticas'] & (vigor['muy_bajo'] | vigor['bajo'] | vigor['medio']), burnout['alto'])
-
-
-#Dedicación
-# Dedicación ALTA + Tareas SATURADAS
-rule13 = ctrl.Rule(dedicacion['alta'] & tareas['saturadas'] & (absorcion['muy_alta'] | absorcion['alta']), burnout['bajo'])
-rule14 = ctrl.Rule(dedicacion['alta'] & tareas['saturadas'] & (absorcion['media'] | absorcion['baja'] | absorcion['muy_baja']), burnout['medio'])
-rule15 = ctrl.Rule(dedicacion['alta'] & tareas['saturadas'] & (pausas['esporadicas'] | pausas['frecuentes']), burnout['bajo'])
-rule16 = ctrl.Rule(dedicacion['alta'] & tareas['saturadas'] & pausas['nulas'], burnout['medio'])
-
-# Dedicación MUY ALTA + Tareas CRÍTICAS
-rule17 = ctrl.Rule(dedicacion['muy_alta'] & tareas['criticas'] & (absorcion['muy_alta'] | absorcion['alta']), burnout['bajo'])
-rule18 = ctrl.Rule(dedicacion['muy_alta'] & tareas['criticas'] & (absorcion['media'] | absorcion['baja'] | absorcion['muy_baja']), burnout['medio'])
-rule19 = ctrl.Rule(dedicacion['muy_alta'] & tareas['criticas'] & (pausas['esporadicas'] | pausas['frecuentes']), burnout['bajo'])
-rule20 = ctrl.Rule(dedicacion['muy_alta'] & tareas['criticas'] & pausas['nulas'], burnout['medio'])
-
-
-# Dedicación ALTA + Tareas CRÍTICAS
-rule21 = ctrl.Rule(dedicacion['alta'] & tareas['criticas'] & (pausas['frecuentes'] | pausas['esporadicas']), burnout['medio'])
-rule22 = ctrl.Rule(dedicacion['alta'] & tareas['criticas'] & pausas['nulas'], burnout['alto'])
-rule23 = ctrl.Rule(dedicacion['alta'] & tareas['criticas'] & (absorcion['muy_baja'] | absorcion['baja']), burnout['alto'])
-rule24 = ctrl.Rule(dedicacion['alta'] & tareas['criticas'] & (absorcion['media'] | absorcion['alta']), burnout['medio'])
-rule25 = ctrl.Rule(dedicacion['alta'] & tareas['criticas'] & absorcion['muy_alta'], burnout['bajo'])
-
-# Dedicación MUY ALTA + Tareas SATURADAS
-rule26 = ctrl.Rule(dedicacion['muy_alta'] & tareas['saturadas'] & (absorcion['media'] | absorcion['alta'] | absorcion['muy_alta']), burnout['bajo'])
-rule27 = ctrl.Rule(dedicacion['muy_alta'] & tareas['saturadas'] & absorcion['baja'], burnout['medio'])
-rule28 = ctrl.Rule(dedicacion['muy_alta'] & tareas['saturadas'] & absorcion['muy_baja'], burnout['alto'])
-rule29 = ctrl.Rule(dedicacion['muy_alta'] & tareas['saturadas'] & (pausas['frecuentes'] | pausas['esporadicas']), burnout['bajo'])
-rule30 = ctrl.Rule(dedicacion['muy_alta'] & tareas['saturadas'] & pausas['nulas'], burnout['medio'])
-
-
-#Vigor
-# Vigor ALTO + Tareas SATURADAS
-rule13_2 = ctrl.Rule(vigor['alto'] & tareas['saturadas'] & (absorcion['muy_alta'] | absorcion['alta']), burnout['bajo'])
-rule14_2 = ctrl.Rule(vigor['alto'] & tareas['saturadas'] & (absorcion['media'] | absorcion['baja'] | absorcion['muy_baja']), burnout['medio'])
-rule15_2 = ctrl.Rule(vigor['alto'] & tareas['saturadas'] & (pausas['esporadicas'] | pausas['frecuentes']), burnout['bajo'])
-rule16_2 = ctrl.Rule(vigor['alto'] & tareas['saturadas'] & pausas['nulas'], burnout['medio'])
-
-# Vigor MUY ALTO + Tareas CRÍTICAS
-rule17_2 = ctrl.Rule(vigor['muy_alto'] & tareas['criticas'] & (absorcion['muy_alta'] | absorcion['alta']), burnout['bajo'])
-rule18_2 = ctrl.Rule(vigor['muy_alto'] & tareas['criticas'] & (absorcion['media'] | absorcion['baja'] | absorcion['muy_baja']), burnout['medio'])
-rule19_2 = ctrl.Rule(vigor['muy_alto'] & tareas['criticas'] & (pausas['esporadicas'] | pausas['frecuentes']), burnout['bajo'])
-rule20_2 = ctrl.Rule(vigor['muy_alto'] & tareas['criticas'] & pausas['nulas'], burnout['medio'])
-
-
-# Vigor ALTO + Tareas CRÍTICAS
-rule21_2 = ctrl.Rule(vigor['alto'] & tareas['criticas'] & (pausas['frecuentes'] | pausas['esporadicas']), burnout['medio'])
-rule22_2 = ctrl.Rule(vigor['alto'] & tareas['criticas'] & pausas['nulas'], burnout['alto'])
-rule23_2 = ctrl.Rule(vigor['alto'] & tareas['criticas'] & (absorcion['muy_baja'] | absorcion['baja']), burnout['alto'])
-rule24_2 = ctrl.Rule(vigor['alto'] & tareas['criticas'] & (absorcion['media'] | absorcion['alta']), burnout['medio'])
-rule25_2 = ctrl.Rule(vigor['alto'] & tareas['criticas'] & absorcion['muy_alta'], burnout['bajo'])
-
-# Vigor MUY ALTO + Tareas SATURADAS
-rule26_2 = ctrl.Rule(vigor['muy_alto'] & tareas['saturadas'] & (absorcion['media'] | absorcion['alta'] | absorcion['muy_alta']), burnout['bajo'])
-rule27_2 = ctrl.Rule(vigor['muy_alto'] & tareas['saturadas'] & absorcion['baja'], burnout['medio'])
-rule28_2 = ctrl.Rule(vigor['muy_alto'] & tareas['saturadas'] & absorcion['muy_baja'], burnout['alto'])
-rule29_2 = ctrl.Rule(vigor['muy_alto'] & tareas['saturadas'] & (pausas['frecuentes'] | pausas['esporadicas']), burnout['bajo'])
-rule30_2 = ctrl.Rule(vigor['muy_alto'] & tareas['saturadas'] & pausas['nulas'], burnout['medio'])
-
-#Dedicación
-# Ambiente HOSTIL + Dedicación MUY ALTA
-rule31 = ctrl.Rule(dedicacion['muy_alta'] & entorno['hostil'] & (absorcion['muy_alta'] | absorcion['alta']), burnout['bajo'])
-rule32 = ctrl.Rule(dedicacion['muy_alta'] & entorno['hostil'] & absorcion['media'], burnout['medio'])
-rule33 = ctrl.Rule(dedicacion['muy_alta'] & entorno['hostil'] & (absorcion['baja'] | absorcion['muy_baja']), burnout['alto'])
-rule34 = ctrl.Rule(dedicacion['muy_alta'] & entorno['hostil'] & (pausas['esporadicas'] | pausas['nulas']), burnout['alto'])
-rule35 = ctrl.Rule(dedicacion['muy_alta'] & entorno['hostil'] & pausas['frecuentes'], burnout['medio'])
-
-# Ambiente NEUTRO + Dedicación MUY ALTA
-rule36 = ctrl.Rule(dedicacion['muy_alta'] & entorno['neutro'] & (absorcion['muy_alta'] | absorcion['alta'] | absorcion['media']), burnout['bajo'])
-rule37 = ctrl.Rule(dedicacion['muy_alta'] & entorno['neutro'] & (absorcion['baja'] | absorcion['muy_baja']), burnout['medio'])
-rule38 = ctrl.Rule(dedicacion['muy_alta'] & entorno['neutro'] & pausas['nulas'], burnout['medio'])
-rule39 = ctrl.Rule(dedicacion['muy_alta'] & entorno['neutro'] & (pausas['esporadicas'] | pausas['frecuentes']), burnout['bajo'])
-
-#Ambiente HOSTIL + Dedicación ALTA
-rule40 = ctrl.Rule(dedicacion['alta'] & entorno['hostil'] & absorcion['muy_alta'], burnout['bajo'])
-rule41 = ctrl.Rule(dedicacion['alta'] & entorno['hostil'] & (absorcion['alta'] | absorcion['media']), burnout['medio'])
-rule42 = ctrl.Rule(dedicacion['alta'] & entorno['hostil'] & (absorcion['baja'] | absorcion['muy_baja']), burnout['alto'])
-rule43 = ctrl.Rule(dedicacion['alta'] & entorno['hostil'] & (pausas['esporadicas'] | pausas['nulas']), burnout['alto'])
-rule44 = ctrl.Rule(dedicacion['alta'] & entorno['hostil'] & pausas['frecuentes'], burnout['medio'])
-
-#Ambiente NEUTRO + Dedicación ALTA
-rule45 = ctrl.Rule(dedicacion['alta'] & entorno['neutro'] & (absorcion['muy_alta'] | absorcion['alta']), burnout['bajo'])
-rule46 = ctrl.Rule(dedicacion['alta'] & entorno['neutro'] & (absorcion['media'] | absorcion['baja'] | absorcion['muy_baja']), burnout['medio'])
-rule47 = ctrl.Rule(dedicacion['alta'] & entorno['neutro'] & (pausas['nulas'] | pausas['esporadicas']), burnout['medio'])
-rule48 = ctrl.Rule(dedicacion['alta'] & entorno['neutro'] & pausas['frecuentes'], burnout['bajo'])
-
-
-#Vigor
-# Ambiente HOSTIL + Vigor MUY ALTO
-rule31_2 = ctrl.Rule(vigor['muy_alto'] & entorno['hostil'] & (absorcion['muy_alta'] | absorcion['alta']), burnout['bajo'])
-rule32_2 = ctrl.Rule(vigor['muy_alto'] & entorno['hostil'] & absorcion['media'], burnout['medio'])
-rule33_2 = ctrl.Rule(vigor['muy_alto'] & entorno['hostil'] & (absorcion['baja'] | absorcion['muy_baja']), burnout['alto'])
-rule34_2 = ctrl.Rule(vigor['muy_alto'] & entorno['hostil'] & (pausas['esporadicas'] | pausas['nulas']), burnout['alto'])
-rule35_2 = ctrl.Rule(vigor['muy_alto'] & entorno['hostil'] & pausas['frecuentes'], burnout['medio'])
-
-# Ambiente NEUTRO + Vigor MUY ALTO
-rule36_2 = ctrl.Rule(vigor['muy_alto'] & entorno['neutro'] & (absorcion['muy_alta'] | absorcion['alta'] | absorcion['media']), burnout['bajo'])
-rule37_2 = ctrl.Rule(vigor['muy_alto'] & entorno['neutro'] & (absorcion['baja'] | absorcion['muy_baja']), burnout['medio'])
-rule38_2 = ctrl.Rule(vigor['muy_alto'] & entorno['neutro'] & pausas['nulas'], burnout['medio'])
-rule39_2 = ctrl.Rule(vigor['muy_alto'] & entorno['neutro'] & (pausas['esporadicas'] | pausas['frecuentes']), burnout['bajo'])
-
-#Ambiente HOSTIL + Vigor ALTO
-rule40_2 = ctrl.Rule(vigor['alto'] & entorno['hostil'] & absorcion['muy_alta'], burnout['bajo'])
-rule41_2 = ctrl.Rule(vigor['alto'] & entorno['hostil'] & (absorcion['alta'] | absorcion['media']), burnout['medio'])
-rule42_2 = ctrl.Rule(vigor['alto'] & entorno['hostil'] & (absorcion['baja'] | absorcion['muy_baja']), burnout['alto'])
-rule43_2 = ctrl.Rule(vigor['alto'] & entorno['hostil'] & (pausas['esporadicas'] | pausas['nulas']), burnout['alto'])
-rule44_2 = ctrl.Rule(vigor['alto'] & entorno['hostil'] & pausas['frecuentes'], burnout['medio'])
-
-#Ambiente NEUTRO + Vigor ALTO
-rule45_2 = ctrl.Rule(vigor['alto'] & entorno['neutro'] & (absorcion['muy_alta'] | absorcion['alta']), burnout['bajo'])
-rule46_2 = ctrl.Rule(vigor['alto'] & entorno['neutro'] & (absorcion['media'] | absorcion['baja'] | absorcion['muy_baja']), burnout['medio'])
-rule47_2 = ctrl.Rule(vigor['alto'] & entorno['neutro'] & (pausas['nulas'] | pausas['esporadicas']), burnout['medio'])
-rule48_2 = ctrl.Rule(vigor['alto'] & entorno['neutro'] & pausas['frecuentes'], burnout['bajo'])
 ```
 
 
