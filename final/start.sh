@@ -12,6 +12,8 @@ pip install -r requirements.txt
 
 # 4. Ejecutar el orquestador
 python3 main.py
+python3 graficar_pertenencia.py
+python3 graficar_casos.py
 
 # 5. Desactivar y borrar el entorno
 deactivate

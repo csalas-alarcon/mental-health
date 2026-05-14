@@ -1,11 +1,8 @@
-# uwes.py 
-
 import pandas as pd
 import numpy as np
 
-# Cuantizar
-def cuantizar_uwes(path):
-    df = pd.read_csv(path)
+# Cambiamos 'path' por 'df' para evitar la re-lectura del archivo
+def cuantizar_uwes(df):
     conversion = {
         "Nunca": 0,
         "Algunas veces al Año": 1,
@@ -21,7 +18,6 @@ def cuantizar_uwes(path):
         df[col] = df[col].map(conversion).fillna(0)
     return df
 
-# Conseguir Variables
 def calcular_dimensiones_uwes(df):
     # Definición por índices
     vig_cols = df.columns[[23, 24, 27]]
@@ -34,9 +30,7 @@ def calcular_dimensiones_uwes(df):
     df["Abs_media"] = df[abs_cols].mean(axis=1).round(2)
     return df
 
-# Categorizar por Percentiles
 def asignar_niveles_uwes(df, col_media):
-    # Obtenemos los 4 percentiles necesarios
     p = np.percentile(df[col_media], [5, 25, 75, 95])
     
     def categorizar(v):
@@ -48,9 +42,7 @@ def asignar_niveles_uwes(df, col_media):
     
     return df[col_media].apply(categorizar), p
 
-# Categorizar por Límites
 def aplicar_niveles_estandar_uwes(df):
-    # Diccionario con los baremos oficiales del UWES
     cortes = {
         "Vig_media": [2.0, 3.25, 4.80, 5.65],
         "Ded_media": [1.33, 2.90, 4.70, 5.69],
@@ -70,20 +62,16 @@ def aplicar_niveles_estandar_uwes(df):
     
     return df
 
-# El Main
-def procesar_uwes(input_csv):
-    df = cuantizar_uwes(input_csv)
+# Función principal que ahora recibe el DataFrame del main.py
+def procesar_uwes(df):
+    df = cuantizar_uwes(df)
     df = calcular_dimensiones_uwes(df)
     
-    # 1. Por tus percentiles (Relativo)
+    # 1. Por percentiles (Relativo)
     for dim in ["Vig", "Ded", "Abs"]:
         df[f"{dim}_nivel"], _ = asignar_niveles_uwes(df, f"{dim}_media")
     
     # 2. Por baremos oficiales (Estándar)
     df = aplicar_niveles_estandar_uwes(df)
     
-    print(df[["Vig_nivel2", "Vig_nivel", "Ded_nivel2", "Ded_nivel", "Abs_nivel2", "Abs_nivel"]])
     return df
-
-if __name__ == "__main__":
-    procesar_uwes("encuestas.csv")
